@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOX Factory Store | Велосипеди та Вилки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo">FOX<span>FACTORY</span></a>
+      <nav class="nav">
+        <a href="#catalog">Каталог</a>
+        <a href="#about">Про нас</a>
+        <a href="#contacts">Контакти</a>
+      </nav>
+      <div class="cart-status" id="cartBtn">
+        🛒 Кошик (<span id="cartCount">0</span>)
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>МАКСИМАЛЬНА ПРОДУКТИВНІСТЬ НА ТРАСІ</h1>
+      <p>Офіційне спорядження, гірські велосипеди та легендарні амортизаційні вилки FOX 36 & 38.</p>
+      <a href="#catalog" class="btn btn-primary">Переглянути каталог</a>
+    </div>
+  </section>
+
+  <!-- Catalog Section -->
+  <section class="catalog container" id="catalog">
+    <h2>Каталог Товарів</h2>
+    
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Усі товари</button>
+      <button class="filter-btn" data-filter="forks">Вилки</button>
+      <button class="filter-btn" data-filter="bikes">Велосипеди5</button>
+      <button class="filter-btn" data-filter="shocks">Амортизатори</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- Картки товарів генеруються через JS -->
+    </div>
+  </section>
+
+  <!-- Modal Cart -->
+  <div class="modal" id="cartModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>Ваш кошик</h2>
+      <div id="cartItemsList" class="cart-items"></div>
+      <div class="cart-total">
+        <span>Разом:</span>
+        <span id="cartTotalPrice">0 ₴</span>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="alert('Замовлення оформлено!')">Оформити замовлення</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="contacts">
+    <div class="container footer-content">
+      <p>&copy; 2026 FOX Factory Store. Усі права захищено.</p>
+      <p>Телефон: +380 (99) 123-45-67 | Email: info@fox-bikes.ua</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
