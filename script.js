@@ -1,147 +1,225 @@
-// База даних товарів
+// Каталог: двопідвіси Santa Cruz (V10, V12, Nomad), вилки FOX, керма та амортизатори
 const products = [
   {
     id: 1,
-    name: "Вилка FOX 36 Factory Grip2",
-    category: "forks",
-    price: 45000,
-    image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=600&q=80"
+    name: "Двопідвіс Santa Cruz V10 CC X01 DH",
+    category: "bikes",
+    categoryLabel: "Двопідвіс (DH)",
+    price: 345000,
+    image: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 2,
-    name: "Вилка FOX 38 Factory Kashima",
-    category: "forks",
-    price: 52000,
-    image: "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=600&q=80"
+    name: "Двопідвіс Santa Cruz V12 Carbon Concept",
+    category: "bikes",
+    categoryLabel: "Двопідвіс (DH)",
+    price: 389000,
+    image: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 3,
-    name: "Гірський велосипед FOX Enduro Pro",
+    name: "Двопідвіс Santa Cruz Nomad Carbon CC",
     category: "bikes",
-    price: 185000,
-    image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=600&q=80"
+    categoryLabel: "Двопідвіс (Enduro)",
+    price: 298000,
+    image: "https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 4,
-    name: "Задній амортизатор DHX2 Factory",
-    category: "shocks",
-    price: 28000,
-    image: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=600&q=80"
+    name: "Вилка FOX 40 Float Factory Kashima 29",
+    category: "forks",
+    categoryLabel: "Вилка",
+    price: 78500,
+    image: "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 5,
-    name: "Велосипед FOX Downhill Expert",
-    category: "bikes",
-    price: 210000,
-    image: "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=600&q=80"
+    name: "Вилка FOX 38 Factory Grip X2 Orange",
+    category: "forks",
+    categoryLabel: "Вилка",
+    price: 62500,
+    image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 6,
-    name: "Амортизатор Float X2 Factory",
+    name: "Кермо карбонове Renthal Fatbar Lite 35",
+    category: "handlebars",
+    categoryLabel: "Кермо",
+    price: 6400,
+    image: "https://images.unsplash.com/photo-1559348349-86f1f65817fe?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 7,
+    name: "Кермо FOX Factory DH Carbon Bar",
+    category: "handlebars",
+    categoryLabel: "Кермо",
+    price: 7200,
+    image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 8,
+    name: "Амортизатор FOX DHX2 Factory Coil",
     category: "shocks",
-    price: 31000,
-    image: "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=600&q=80"
+    categoryLabel: "Амортизатор",
+    price: 29400,
+    image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
-// Стан кошика
 let cart = [];
 
-// DOM елементи
 const productsGrid = document.getElementById('productsGrid');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const cartBtn = document.getElementById('cartBtn');
 const cartModal = document.getElementById('cartModal');
 const closeModal = document.getElementById('closeModal');
+const cartCount = document.getElementById('cartCount');
 const cartItemsList = document.getElementById('cartItemsList');
 const cartTotalPrice = document.getElementById('cartTotalPrice');
-const cartCount = document.getElementById('cartCount');
 
-// Рендер картки товару
-function renderProducts(items) {
-  productsGrid.innerHTML = items.map(product => `
-    <div class="product-card">
-      <img src="${product.image}" alt="${product.name}" class="product-image">
-      <div class="product-info">
-        <h3 class="product-title">${product.name}</h3>
-        <div class="product-price">${product.price.toLocaleString()} ₴</div>
-        <button class="btn btn-primary" onclick="addToCart(${product.id})">У кошик</button>
-      </div>
-    </div>
-  `).join('');
+// Слайдер
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+const prevSlideBtn = document.getElementById('prevSlide');
+const nextSlideBtn = document.getElementById('nextSlide');
+let currentSlide = 0;
+
+function showSlide(index) {
+  if (!slides.length) return;
+  if (index >= slides.length) currentSlide = 0;
+  else if (index < 0) currentSlide = slides.length - 1;
+  else currentSlide = index;
+
+  slides.forEach(slide => slide.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
 }
 
-// Фільтрація товарів
+if (nextSlideBtn && prevSlideBtn) {
+  nextSlideBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+  prevSlideBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      showSlide(parseInt(dot.getAttribute('data-slide')));
+    });
+  });
+
+  setInterval(() => { showSlide(currentSlide + 1); }, 6000);
+}
+
+function filterFromHero(category) {
+  filterBtns.forEach(b => {
+    b.classList.remove('active');
+    if (b.getAttribute('data-filter') === category) b.classList.add('active');
+  });
+  displayProducts(products.filter(p => p.category === category));
+}
+
+// Рендеринг товарів
+function displayProducts(items) {
+  if (!productsGrid) return;
+  productsGrid.innerHTML = '';
+
+  items.forEach(product => {
+    const card = document.createElement('div');
+    card.classList.add('product-card');
+    card.innerHTML = `
+      <div class="product-img-wrap">
+        <img src="${product.image}" alt="${product.name}">
+      </div>
+      <div class="product-info">
+        <div>
+          <div class="product-category-tag">${product.categoryLabel}</div>
+          <h3>${product.name}</h3>
+        </div>
+        <div>
+          <p class="product-price">${product.price.toLocaleString()} ₴</p>
+          <button class="btn btn-primary btn-sm" onclick="addToCart(${product.id})">Додати в кошик</button>
+        </div>
+      </div>
+    `;
+    productsGrid.appendChild(card);
+  });
+}
+
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     filterBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    
-    const filter = btn.dataset.filter;
-    if (filter === 'all') {
-      renderProducts(products);
-    } else {
-      const filtered = products.filter(p => p.category === filter);
-      renderProducts(filtered);
-    }
+
+    const filter = btn.getAttribute('data-filter');
+    if (filter === 'all') displayProducts(products);
+    else displayProducts(products.filter(p => p.category === filter));
   });
 });
 
-// Додавання у кошик
-window.addToCart = function(id) {
+// Кошик
+function addToCart(id) {
   const product = products.find(p => p.id === id);
-  const existingItem = cart.find(item => item.id === id);
+  const existing = cart.find(item => item.id === id);
 
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({ ...product, quantity: 1 });
-  }
-
+  if (existing) existing.quantity += 1;
+  else cart.push({ ...product, quantity: 1 });
   updateCartUI();
-};
-
-// Видалення з кошика
-window.removeFromCart = function(id) {
-  cart = cart.filter(item => item.id !== id);
-  updateCartUI();
-};
-
-// Оновлення інтерфейсу кошика
-function updateCartUI() {
-  // Лічильник товарів
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartCount.textContent = totalItems;
-
-  // Загальна вартість
-  const totalSum = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  cartTotalPrice.textContent = `${totalSum.toLocaleString()} ₴`;
-
-  // Список у модальному вікні
-  if (cart.length === 0) {
-    cartItemsList.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Кошик порожній</p>';
-  } else {
-    cartItemsList.innerHTML = cart.map(item => `
-      <div class="cart-item">
-        <div class="cart-item-info">
-          <span class="cart-item-title">${item.name}</span>
-          <span class="cart-item-price">${item.quantity} x ${item.price.toLocaleString()} ₴</span>
-        </div>
-        <button class="remove-item" onclick="removeFromCart(${item.id})">&times;</button>
-      </div>
-    `).join('');
-  }
 }
 
-// Модальне вікно
-cartBtn.addEventListener('click', () => cartModal.classList.add('active'));
-closeModal.addEventListener('click', () => cartModal.classList.remove('active'));
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== id);
+  updateCartUI();
+}
 
-window.addEventListener('click', (e) => {
-  if (e.target === cartModal) {
-    cartModal.classList.remove('active');
+function updateCartUI() {
+  if (!cartCount || !cartItemsList || !cartTotalPrice) return;
+  
+  const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartCount.textContent = totalCount;
+
+  cartItemsList.innerHTML = '';
+  if (cart.length === 0) {
+    cartItemsList.innerHTML = '<p style="color: #a1a1aa;">Ваш кошик порожній</p>';
+    cartTotalPrice.textContent = '0 ₴';
+    return;
   }
-});
 
-// Ініціалізація
-renderProducts(products);
+  let total = 0;
+  cart.forEach(item => {
+    total += item.price * item.quantity;
+    const itemEl = document.createElement('div');
+    itemEl.classList.add('cart-item');
+    itemEl.innerHTML = `
+      <div class="cart-item-details">
+        <h4>${item.name}</h4>
+        <p>${item.price.toLocaleString()} ₴ × ${item.quantity}</p>
+      </div>
+      <button class="remove-item-btn" onclick="removeFromCart(${item.id})">&times;</button>
+    `;
+    cartItemsList.appendChild(itemEl);
+  });
+
+  cartTotalPrice.textContent = `${total.toLocaleString()} ₴`;
+}
+
+function checkoutOrder() {
+  if (cart.length === 0) {
+    alert('Додайте товари в кошик перед оформленням!');
+    return;
+  }
+  alert('Дякуємо! Ваше замовлення успішно оформлено.');
+  cart = [];
+  updateCartUI();
+  if (cartModal) cartModal.style.display = 'none';
+}
+
+if (cartBtn && cartModal && closeModal) {
+  cartBtn.addEventListener('click', () => { cartModal.style.display = 'flex'; });
+  closeModal.addEventListener('click', () => { cartModal.style.display = 'none'; });
+  window.addEventListener('click', (e) => {
+    if (e.target === cartModal) cartModal.style.display = 'none';
+  });
+}
+
+displayProducts(products);
+updateCartUI();
