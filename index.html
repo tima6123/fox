@@ -26,12 +26,53 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-content">
-      <h1>МАКСИМАЛЬНА ПРОДУКТИВНІСТЬ НА ТРАСІ</h1>
-      <p>Офіційне спорядження, гірські велосипеди та легендарні амортизаційні вилки FOX 36 & 38.</p>
-      <a href="#catalog" class="btn btn-primary">Переглянути каталог</a>
+  <!-- Hero Slider Section -->
+  <section class="hero-slider">
+    <!-- Слайд 1 -->
+    <div class="slide active" style="background-image: linear-gradient(to right, rgba(14, 14, 17, 0.92) 30%, rgba(14, 14, 17, 0.45)), url('https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?auto=format&fit=crop&w=1600&q=80');">
+      <div class="container">
+        <div class="hero-content">
+          <span class="slide-badge">НОВА КОЛЕКЦІЯ 2026</span>
+          <h1>МАКСИМАЛЬНА ПРОДУКТИВНІСТЬ НА ТРАСІ</h1>
+          <p>Офіційне спорядження, гірські двопідвіси Santa Cruz та легендарні амортизаційні вилки FOX 38 & 40.</p>
+          <a href="#catalog" class="btn btn-primary">Переглянути каталог</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Слайд 2 -->
+    <div class="slide" style="background-image: linear-gradient(to right, rgba(14, 14, 17, 0.92) 30%, rgba(14, 14, 17, 0.45)), url('https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=1600&q=80');">
+      <div class="container">
+        <div class="hero-content">
+          <span class="slide-badge">DOWNHILL & ENDURO</span>
+          <h1>ДВОПІДВІСИ SANTA CRUZ V10 & NOMAD</h1>
+          <p>Карбонові рами світового рівня для найскладніших спусків та байк-парків.</p>
+          <a href="#catalog" class="btn btn-primary" onclick="filterFromHero('bikes')">Дивитись велосипеди</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Слайд 3 -->
+    <div class="slide" style="background-image: linear-gradient(to right, rgba(14, 14, 17, 0.92) 30%, rgba(14, 14, 17, 0.45)), url('https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=1600&q=80');">
+      <div class="container">
+        <div class="hero-content">
+          <span class="slide-badge">KASHIMA COAT</span>
+          <h1>ПІДВІСКА FOX FACTORY SERIES</h1>
+          <p>Ідеальне відпрацювання нерівностей завдяки покриттю Kashima та демпферам Grip X2.</p>
+          <a href="#catalog" class="btn btn-primary" onclick="filterFromHero('forks')">Обрати вилку</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Кнопки навігації слайдера -->
+    <button class="slider-arrow prev" id="prevSlide" aria-label="Попередній слайд">&#10094;</button>
+    <button class="slider-arrow next" id="nextSlide" aria-label="Наступний слайд">&#10095;</button>
+
+    <!-- Індикатори (крапки) -->
+    <div class="slider-dots">
+      <span class="dot active" data-slide="0"></span>
+      <span class="dot" data-slide="1"></span>
+      <span class="dot" data-slide="2"></span>
     </div>
   </section>
 
@@ -41,13 +82,22 @@
     
     <div class="filter-buttons">
       <button class="filter-btn active" data-filter="all">Усі товари</button>
+      <button class="filter-btn" data-filter="bikes">Велосипеди</button>
       <button class="filter-btn" data-filter="forks">Вилки</button>
-      <button class="filter-btn" data-filter="bikes">Велосипеди5</button>
       <button class="filter-btn" data-filter="shocks">Амортизатори</button>
+      <button class="filter-btn" data-filter="handlebars">Керма</button>
     </div>
 
     <div class="products-grid" id="productsGrid">
       <!-- Картки товарів генеруються через JS -->
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about container" id="about">
+    <div class="about-box">
+      <h2>Про FOX Factory Store</h2>
+      <p>Ми спеціалізуємося на професійному спорядженні для Downhill, Enduro та Trail катання. У нашому асортименті лише оригінальні компоненти FOX Racing Shox, велосипеди Santa Cruz та топові карбонові комплектуючі з офіційною гарантією та сервісною підтримкою.</p>
     </div>
   </section>
 
@@ -61,7 +111,7 @@
         <span>Разом:</span>
         <span id="cartTotalPrice">0 ₴</span>
       </div>
-      <button class="btn btn-primary btn-full" onclick="alert('Замовлення оформлено!')">Оформити замовлення</button>
+      <button class="btn btn-primary btn-full" onclick="checkoutOrder()">Оформити замовлення</button>
     </div>
   </div>
 
